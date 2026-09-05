@@ -698,9 +698,9 @@ input, select{ font-family: inherit; }
   }
 
   .marca img{
-    height: 85px;
-    width: auto;
-    object-fit: contain;
+  width: 120px;
+  height: auto;
+}
   }
 
   .marca{
