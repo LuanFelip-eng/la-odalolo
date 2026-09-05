@@ -1304,16 +1304,7 @@ table.tabela-painel tr:last-child td{ border-bottom: none; }
   pointer-events:none;
 }
 
-@media (max-width: 640px){
 
-  .cabecalho{
-    height: auto;
-    min-height: 100px;
-  }
-
-  .marca img{
-    height: 140px !important;
-    max-height: none !important;
     width: auto !important;
   }
 }
