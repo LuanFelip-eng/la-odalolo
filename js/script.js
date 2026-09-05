@@ -9,7 +9,20 @@
 /* =========================================================
    🧭 CABEÇALHO / MENU MOBILE
    ========================================================= */
-(function iniciarCabecalho(){
+
+const SUPABASE_URL = "https://uczemxrafdjxmoeshygp.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_tGT7hRjpq1CgCd9semzbbw_vLDzQdn5";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+
+
+  (function iniciarCabecalho(){
   const cabecalho = $("#cabecalho");
   const btnHamburguer = $("#btnHamburguer");
   const nav = $("#navPrincipal");
@@ -505,9 +518,47 @@ function iniciarEventos(){
 /* =========================================================
    🚀 INICIALIZAÇÃO
    ========================================================= */
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+
+  const { data, error } = await supabaseClient
+    .from("produtos")
+    .select("*");
+
+  console.log("ERRO:", error);
+  console.log("DADOS:", data);
+
+  if (error) {
+    console.error("Erro Supabase:", error);
+    return;
+  }
+
+  localStorage.setItem(
+    "lacos_produtos",
+    JSON.stringify(data || [])
+  );
+
   UI.montarFiltros();
   UI.renderizarCatalogo();
   UI.renderizarCarrinho();
   iniciarEventos();
-});
+
+}); // <- linha 546 aproximadamente
+
+
+// COLE AQUI EMBAIXO
+
+const heroLaco = document.querySelector(".hero-laco");
+
+if (heroLaco) {
+
+  document.addEventListener("mousemove", (e) => {
+
+    const x = (e.clientX / window.innerWidth - 0.5) * 30;
+    const y = (e.clientY / window.innerHeight - 0.5) * 30;
+
+    heroLaco.style.transform =
+      `translate(${x}px, ${y}px) rotateY(${x}deg) rotateX(${-y}deg)`;
+
+  });
+
+}
