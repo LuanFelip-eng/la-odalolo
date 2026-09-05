@@ -66,30 +66,12 @@
       </div>
 
       <div class="hero-visual">
-        <div class="orbita-decor o1"></div>
-        <div class="orbita-decor o2"></div>
-        <div class="palco-laco" id="palcoLaco" role="button" tabindex="0" aria-label="Toque no laço para vê-lo dançar">
-          <svg class="laco-svg" id="lacoSvg" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="gradLaco" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FDE2ED"/>
-                <stop offset="100%" stop-color="#F2A6C6"/>
-              </linearGradient>
-              <radialGradient id="gradNo" cx="35%" cy="35%" r="70%">
-                <stop offset="0%" stop-color="#EEE6FB"/>
-                <stop offset="100%" stop-color="#9B79CE"/>
-              </radialGradient>
-            </defs>
-            <ellipse cx="120" cy="212" rx="98" ry="13" fill="#D9739E" opacity="0.12"/>
-            <path d="M120 120 C 55 55, 12 50, 10 100 C 8 145, 55 155, 120 120 Z" fill="url(#gradLaco)" stroke="#D9739E" stroke-width="3.5" stroke-linejoin="round"/>
-            <path d="M120 120 C 185 55, 228 50, 230 100 C 232 145, 185 155, 120 120 Z" fill="url(#gradLaco)" stroke="#D9739E" stroke-width="3.5" stroke-linejoin="round"/>
-            <path d="M120 120 C 92 155, 84 198, 98 214 C 107 202, 118 168, 120 120 Z" fill="#F2A6C6" stroke="#D9739E" stroke-width="3.5" stroke-linejoin="round"/>
-            <path d="M120 120 C 148 155, 156 198, 142 214 C 133 202, 122 168, 120 120 Z" fill="#F2A6C6" stroke="#D9739E" stroke-width="3.5" stroke-linejoin="round"/>
-            <circle cx="120" cy="120" r="24" fill="url(#gradNo)" stroke="#D9739E" stroke-width="3.5"/>
-            <path d="M102 111 Q120 97 138 111" stroke="#FDE2ED" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8"/>
-          </svg>
-          <span class="dica-toque">toque no laço ✨</span>
-        </div>
+     <div class="orbita-decor o1"></div>
+<div class="orbita-decor o2"></div>
+
+<div class="hero-laco">
+  <img src="img/laco-principal.png" alt="Laço da Lôlô">
+</div>
       </div>
     </div>
   </section>
@@ -271,6 +253,8 @@
   <span>🎀</span>
   <span id="toastTexto">Produto adicionado ao carrinho!</span>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="js/dados.js"></script>
 <script src="js/script.js"></script>
