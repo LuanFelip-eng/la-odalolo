@@ -16,7 +16,7 @@
 const CONFIG = {
   NOME_LOJA: "Laços da Lôlô",
   // Número de WhatsApp da loja, formato internacional sem espaços/símbolos (DDI + DDD + número)
-  WHATSAPP_NUMERO: "558599992773336",
+  WHATSAPP_NUMERO: "5585992773336",
   MENSAGEM_WHATSAPP_FLUTUANTE: "Olá! Vim pelo site da Laços da Lôlô e gostaria de tirar uma dúvida.",
   CORES_PRINCIPAIS: {
     rosa: "#F2A6C6",
@@ -123,13 +123,17 @@ const Dados = {
     .map(p => this._normalizarProduto(p));
 },
 
-  obterProduto(id){
-    return this.listarProdutos().find(p => p.id === Number(id));
-  },
+ obterProduto(id){
+  return this.listarProdutos().find(
+    p => String(p.id) === String(id)
+  );
+},
 
   obterProdutoPorId(id){
-    return this.listarTodosProdutos().find(p => p.id === Number(id));
-  },
+  return this.listarTodosProdutos().find(
+    p => String(p.id) === String(id)
+  );
+},
 
   salvarProdutos(lista){
     this._salvar(CHAVES.PRODUTOS, lista);
