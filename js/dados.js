@@ -16,7 +16,7 @@
 const CONFIG = {
   NOME_LOJA: "Laços da Lôlô",
   // Número de WhatsApp da loja, formato internacional sem espaços/símbolos (DDI + DDD + número)
-  WHATSAPP_NUMERO: "5585992773336",
+  WHATSAPP_NUMERO: "5585992308612",
   MENSAGEM_WHATSAPP_FLUTUANTE: "Olá! Vim pelo site da Laços da Lôlô e gostaria de tirar uma dúvida.",
   CORES_PRINCIPAIS: {
     rosa: "#F2A6C6",
