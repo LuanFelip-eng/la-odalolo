@@ -547,17 +547,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // COLE AQUI EMBAIXO
 
-const heroLaco = document.querySelector(".hero-laco");
+const herolaco = document.querySelector(".hero-laco");
 
-if (heroLaco) {
+if (herolaco) {
 
-  document.addEventListener("mousemove", (e) => {
+  function moverLaco(xPos, yPos) {
 
-    const x = (e.clientX / window.innerWidth - 0.5) * 30;
-    const y = (e.clientY / window.innerHeight - 0.5) * 30;
+    const x = (xPos / window.innerWidth - 0.5) * 30;
+    const y = (yPos / window.innerHeight - 0.5) * 30;
 
-    heroLaco.style.transform =
+    herolaco.style.transform =
       `translate(${x}px, ${y}px) rotateY(${x}deg) rotateX(${-y}deg)`;
+  }
+
+  // Computador
+  document.addEventListener("mousemove", (e) => {
+    moverLaco(e.clientX, e.clientY);
+  });
+
+  // Celular
+  document.addEventListener("touchmove", (e) => {
+    const toque = e.touches[0];
+    moverLaco(toque.clientX, toque.clientY);
+  });
+
+}
 
   });
 
