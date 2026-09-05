@@ -697,9 +697,10 @@ input, select{ font-family: inherit; }
   }
 
   .marca img{
-  height: 50px;
+  height: 100px;
   width: auto;
   object-fit: contain;
+}
 }
 
   .container{ padding: 0 18px; }
@@ -722,7 +723,7 @@ input, select{ font-family: inherit; }
   .base-rodape{ justify-content:center; text-align:center; }
   .whatsapp-flutuante{ width:56px; height:56px; bottom:18px; right:18px; }
   .gaveta-carrinho{ width:100%; }
-}
+
 
 
 /* =========================================================
