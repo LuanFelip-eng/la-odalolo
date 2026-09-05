@@ -701,17 +701,7 @@ input, select{ font-family: inherit; }
   width: 120px;
   height: auto;
 }
-  }
 
-  .marca{
-    gap: 14px;
-  }
-
-  .marca span{
-    font-size: 1.25rem;
-  }
-
-}
 }
 
   .container{ padding: 0 18px; }
