@@ -690,16 +690,27 @@ input, select{ font-family: inherit; }
 }
 
 @media (max-width: 640px){
+
   .botao-login{
     min-height: 40px;
     padding: 8px 11px;
     font-size: .82rem;
   }
 
-   .marca img{
-  height: 65px;
-  width: auto;
-  object-fit: contain;
+  .marca img{
+    height: 85px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .marca{
+    gap: 14px;
+  }
+
+  .marca span{
+    font-size: 1.25rem;
+  }
+
 }
 }
 
