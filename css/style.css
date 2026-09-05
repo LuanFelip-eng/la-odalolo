@@ -697,7 +697,7 @@ input, select{ font-family: inherit; }
   }
 
   .marca img{
-  height: 42px;
+  height: 50px;
   width: auto;
   object-fit: contain;
 }
@@ -1282,4 +1282,20 @@ table.tabela-painel tr:last-child td{ border-bottom: none; }
   .conteudo-painel{ padding: 84px 18px 60px; }
   .grade-formulario{ grid-template-columns: 1fr; }
   table.tabela-painel{ min-width: 640px; }
+}
+
+.hero-laco{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transition:transform .15s ease-out;
+  cursor:grab;
+}
+
+.hero-laco img{
+  width:100%;
+  max-width:650px;
+  height:auto;
+  pointer-events:none;
 }
