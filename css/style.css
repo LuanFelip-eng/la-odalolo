@@ -696,14 +696,16 @@ input, select{ font-family: inherit; }
   }
 
   .marca img{
-    height: 50px !important;
+    height: 70px !important;
     width: auto !important;
-    max-width: none !important;
-    object-fit: contain;
-    display: block;
   }
 
-}
+  .cabecalho .container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
 }
 
   .container{ padding: 0 18px; }
