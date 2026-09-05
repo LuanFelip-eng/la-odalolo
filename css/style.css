@@ -691,17 +691,19 @@ input, select{ font-family: inherit; }
 
 @media (max-width: 640px){
 
-  .botao-login{
-    min-height: 40px;
-    padding: 8px 11px;
-    font-size: .82rem;
+  .marca{
+    flex-shrink: 0;
   }
 
   .marca img{
-  width: 150px;
-  height: auto;
-}
+    height: 70px !important;
+    width: auto !important;
+    max-width: none !important;
+    object-fit: contain;
+    display: block;
+  }
 
+}
 }
 
   .container{ padding: 0 18px; }
