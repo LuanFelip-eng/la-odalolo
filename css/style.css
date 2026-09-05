@@ -692,7 +692,7 @@ input, select{ font-family: inherit; }
 @media (max-width: 640px){
 
   .botao-login{
-    min-height: 80px;
+    min-height: 40px;
     padding: 8px 11px;
     font-size: .82rem;
   }
