@@ -1311,7 +1311,7 @@
   </div>
 
   <div class="admin-toast" id="adminToast"></div>
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     /* =========================================================
        SEGURANÇA BÁSICA DA SESSÃO
@@ -1324,9 +1324,24 @@
     /* =========================================================
        ELEMENTOS
        ========================================================= */
+      const SUPABASE_URL = "https://uczemxrafdjxmoeshygp.supabase.co";
+      const SUPABASE_KEY = "sb_publishable_tGT7hRjpq1CgCd9semzbbw_vLDzQdn5";
 
-    const STORAGE_KEY = "lacos_produtos";
-    const CONFIG_KEY = "lacosDaLoloConfig";
+      // O objeto "supabase" fornecido pelo CDN é a biblioteca.
+      // O cliente conectado ao seu projeto é "supabaseClient".
+      const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+      console.log("Supabase conectado:", !!supabaseClient);
+
+
+const STORAGE_KEY = "lacos_produtos";
+const CONFIG_KEY = "lacosDaLoloConfig";
+
+
+
 
     const sections = document.querySelectorAll(".dashboard-section");
     const navButtons = document.querySelectorAll(".admin-nav button");
@@ -1334,9 +1349,29 @@
     const sidebar = document.getElementById("adminSidebar");
     const toast = document.getElementById("adminToast");
 
-    let produtos = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    let produtos = [];
     let produtoEditandoId = null;
     let imagemProdutoBase64 = "";
+    async function carregarProdutos() {
+
+  const { data, error } = await supabaseClient
+    .from("produtos")
+    .select("*");
+
+  console.log("Produtos carregados:", data);
+  console.log("Erro:", error);
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  produtos = data || [];
+
+  atualizarDashboard();
+  renderizarProdutos();
+  renderizarEstoque();
+}
 
     /* =========================================================
        NAVEGAÇÃO
@@ -1393,9 +1428,20 @@
        PRODUTOS
        ========================================================= */
 
-    function salvarProdutos() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(produtos));
-    }
+   async function salvarProdutos() {
+
+  const { error } = await supabaseClient
+    .from("produtos")
+    .upsert(produtos);
+
+  if (error) {
+    console.error("Erro ao salvar:", error);
+    mostrarToast("Erro ao salvar produto.");
+    return;
+  }
+
+  console.log("Produtos salvos no Supabase");
+}
 
     function formatarMoeda(valor) {
       return Number(valor || 0).toLocaleString("pt-BR", {
@@ -1706,7 +1752,7 @@
         });
       });
 
-    formProduto.addEventListener("submit", function (event) {
+   formProduto.addEventListener("submit", async function (event) {
       event.preventDefault();
 
       const nome = document.getElementById("produtoNome").value.trim();
@@ -1741,22 +1787,66 @@
         ativo: true,
         cores: [],
 
-        variacoes,
-        atualizadoEm: new Date().toISOString()
+        variacoes
+       
         };
 
-      if (produtoEditandoId) {
-        produtos = produtos.map(item =>
-          item.id === produtoEditandoId ? produto : item
-        );
+ if (produtoEditandoId) {
 
-        mostrarToast("Produto atualizado com sucesso.");
-      } else {
-        produtos.push(produto);
-        mostrarToast("Produto cadastrado com sucesso.");
-      }
+  const { error } = await supabaseClient
+    .from("produtos")
+    .update({
+      nome,
+      categoria,
+      descricao,
+      preco,
+      estoque,
+      imagem: imagemProdutoBase64,
+      ativo: true,
+      cores: [],
+      variacoes,
+    })
+    .eq("id", produtoEditandoId);
 
-      salvarProdutos();
+  if (error) {
+    console.error(error);
+    mostrarToast("Erro ao atualizar produto.");
+    return;
+  }
+
+  mostrarToast("Produto atualizado com sucesso.");
+
+} else {
+
+  const { error } = await supabaseClient
+    .from("produtos")
+    .insert([{
+      id: String(Date.now()),
+      nome,
+      categoria,
+      descricao,
+      preco,
+      estoque,
+      imagem: imagemProdutoBase64,
+      ativo: true,
+      cores: [],
+      variacoes,
+      // atualizadoem: new Date().toISOString()
+    }]);
+
+  if (error) {
+    console.error(error);
+    mostrarToast("Erro ao cadastrar produto.");
+    return;
+  }
+
+  mostrarToast("Produto cadastrado com sucesso.");
+}
+
+await carregarProdutos();
+
+limparFormulario();
+abrirSecao("produtos");
       limparFormulario();
       atualizarDashboard();
       renderizarProdutos();
@@ -1805,29 +1895,28 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function excluirProduto(id) {
-      const produto = produtos.find(item => item.id === id);
+   async function excluirProduto(id) {
+  const confirmar = window.confirm(
+    "Deseja realmente excluir este produto?"
+  );
 
-      if (!produto) return;
+  if (!confirmar) return;
 
-      const confirmar = window.confirm(
-        `Deseja realmente excluir o produto "${produto.nome}"?`
-      );
+  const { error } = await supabaseClient
+    .from("produtos")
+    .delete()
+    .eq("id", id);
 
-      if (!confirmar) return;
+  if (error) {
+    console.error(error);
+    mostrarToast("Erro ao excluir produto.");
+    return;
+  }
 
-      produtos = produtos.filter(item => item.id !== id);
-      salvarProdutos();
+  await carregarProdutos();
 
-      atualizarDashboard();
-      renderizarProdutos();
-      renderizarEstoque();
-
-      mostrarToast("Produto excluído.");
-    }
-
-    window.editarProduto = editarProduto;
-    window.excluirProduto = excluirProduto;
+  mostrarToast("Produto excluído.");
+}
 
     function limparFormulario() {
       formProduto.reset();
@@ -1948,11 +2037,13 @@
        ========================================================= */
 
     carregarConfiguracoes();
-    atualizarDashboard();
-    renderizarProdutos();
-    renderizarEstoque();
-  </script>
+    carregarProdutos();
+    
 
+    
+
+  </script>
+    
+    
 </body>
 </html>
-
