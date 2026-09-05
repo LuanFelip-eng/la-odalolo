@@ -697,8 +697,9 @@ input, select{ font-family: inherit; }
   }
 
    .marca img{
-  height: 120px !important;
-  width: auto !important;
+  height: 65px;
+  width: auto;
+  object-fit: contain;
 }
 }
 
